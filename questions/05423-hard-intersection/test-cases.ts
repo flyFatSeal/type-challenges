@@ -1,4 +1,9 @@
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from '@type-challenges/utils';
+
+// your answers
+type Intersection<T> = T extends [infer First, ...infer Rest]
+  ? (First extends unknown[] ? First[number] : First) & Intersection<Rest>
+  : unknown;
 
 type cases = [
   Expect<Equal<Intersection<[[1, 2], [2, 3], [2, 2]]>, 2>>,
@@ -7,4 +12,4 @@ type cases = [
   Expect<Equal<Intersection<[[1, 2, 3], [2, 3, 4], 3]>, 3>>,
   Expect<Equal<Intersection<[[1, 2, 3], 2 | 3 | 4, 2 | 3]>, 2 | 3>>,
   Expect<Equal<Intersection<[[1, 2, 3], 2, 3]>, never>>,
-]
+];
